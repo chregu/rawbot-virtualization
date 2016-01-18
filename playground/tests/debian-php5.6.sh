@@ -24,6 +24,7 @@ export VAGRANT_DEFAULT_PROVIDER=$1
 
 vagrant destroy -f
 vagrant up
+vagrant ssh -c "php -v"
 
 trap - EXIT SIGHUP SIGINT SIGTERM
 
