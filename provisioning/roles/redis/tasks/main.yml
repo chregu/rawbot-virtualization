@@ -11,6 +11,6 @@
   
 - include: php7.yml
  
-  when: "ansible_lsb.major_release|int == 8 and {{ php_version | float }} == 7.0"
-  
+  when: "{{ php_version | float }} == 7.0"
+
 
