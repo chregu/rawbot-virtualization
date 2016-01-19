@@ -24,10 +24,11 @@ cp  ../Vagrantfile virtualization/drifter/
 cp  -r ../provisioning virtualization/drifter/
 
 
-ln -s ../playbooks/debian-php5.6-parameters.yml playbooks/parameters.yml 
-export VIRTUALIZATION_PARAMETERS_FILE=playbooks/debian-php5.6-parameters.yml
+ln -s ../playbooks/$1 playbooks/parameters.yml 
 
-export VAGRANT_DEFAULT_PROVIDER=$1
+export VIRTUALIZATION_PARAMETERS_FILE=playbooks/$1
+
+export VAGRANT_DEFAULT_PROVIDER=$2
 
 
 vagrant destroy -f

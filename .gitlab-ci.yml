@@ -8,30 +8,30 @@ stages:
 variables:
   VAGRANT_DEFAULT_PROVIDER: lxc
 
-php56lxc:
+debian-lxc-php56:
   tags:
     - lxc
     - shell
-  script: "tests/debian-php5.6.sh lxc"
+  script: "tests/run_tests.sh debian-php5.6-parameters.yml lxc"
   stage: test
 
-#php56virtualbox:
-#  tags:
-#    - lxc
-#    - shell
-#  script: "playground/tests/debian-php5.6.sh virtualbox"
-#  stage: test
-
-php70lxc:
+debian-vb-php56:
   tags:
     - lxc
     - shell
-  script: "tests/debian-php7.0.sh lxc"
+  script: "tests/run_tests.sh debian-php5.6-parameters.yml virtualbox"
   stage: test
 
-#php70virtualbox:
-#  tags:
-#    - lxc
-#    - shell
-#  script: "playground/tests/debian-php7.0.sh virtualbox"
-#  stage: test
+debian-lxc-php70:
+  tags:
+    - lxc
+    - shell
+  script: "tests/run_tests.sh debian-php7.0-parameters.yml lxc "
+  stage: test
+
+debian-vb-php70:
+  tags:
+    - lxc
+    - shell
+  script: "tests/run_tests.sh debian-php7.0-parameters.yml virtualbox"
+  stage: test
