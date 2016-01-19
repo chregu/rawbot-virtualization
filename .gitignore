@@ -1,1 +1,6 @@
 hosts.ini
+tests/virtualization/
+tests/ansible.cfg
+tests/Vagrantfile
+tests/playbooks/parameters.yml
+

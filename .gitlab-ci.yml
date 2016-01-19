@@ -12,7 +12,7 @@ php56lxc:
   tags:
     - lxc
     - shell
-  script: "playground/tests/debian-php5.6.sh lxc"
+  script: "tests/debian-php5.6.sh lxc"
   stage: test
 
 #php56virtualbox:
@@ -26,7 +26,7 @@ php70lxc:
   tags:
     - lxc
     - shell
-  script: "playground/tests/debian-php7.0.sh lxc"
+  script: "tests/debian-php7.0.sh lxc"
   stage: test
 
 #php70virtualbox:

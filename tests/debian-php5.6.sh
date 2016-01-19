@@ -14,19 +14,26 @@ function cleanup() {
 
 trap finish EXIT SIGHUP SIGINT SIGTERM
 
-cd playground
+cd tests
 
-ln -s ../../tests/playbooks/debian-php7.0-parameters.yml  tests/playbooks/parameters.yml 
 
-export VIRTUALIZATION_PARAMETERS_FILE=tests/playbooks/debian-php7.0-parameters.yml
+cp ../ansible.cfg.dist ansible.cfg
+cp ../Vagrantfile.dist Vagrantfile
+mkdir -p virtualization/drifter
+cp  ../Vagrantfile virtualization/drifter/
+cp  -r ../provisioning virtualization/drifter/
+
+
+ln -s ../playbooks/debian-php5.6-parameters.yml playbooks/parameters.yml 
+export VIRTUALIZATION_PARAMETERS_FILE=playbooks/debian-php5.6-parameters.yml
 
 export VAGRANT_DEFAULT_PROVIDER=$1
 
 
 vagrant destroy -f
 vagrant up
-
 vagrant ssh -c "php -v"
+
 trap - EXIT SIGHUP SIGINT SIGTERM
 
 cleanup

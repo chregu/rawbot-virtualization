@@ -39,7 +39,7 @@ root_directory: "/vagrant/"
 php_version: 5.6
 root_directory: "/vagrant/web/"
 
-playbook: tests/playbooks/nginx-mysql.yml
+playbook: playbooks/nginx-mysql.yml
 
 
 
