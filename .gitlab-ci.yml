@@ -35,3 +35,17 @@ debian-vb-php70:
     - shell
   script: "tests/run_tests.sh debian-php7.0-parameters.yml virtualbox"
   stage: test
+  
+ubuntu-lxc-php56:
+  tags:
+    - lxc
+    - shell
+  script: "tests/run_tests.sh ubuntu-php5.6-parameters.yml lxc"
+  stage: test
+  
+ubuntu-vb-php56:
+  tags:
+    - lxc
+    - shell
+  script: "tests/run_tests.sh ubuntu-php5.6-parameters.yml virtualbox"
+  stage: test

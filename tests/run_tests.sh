@@ -24,7 +24,7 @@ cp  ../Vagrantfile virtualization/drifter/
 cp  -r ../provisioning virtualization/drifter/
 
 
-ln -s ../playbooks/$1 playbooks/parameters.yml 
+ln -sf ../playbooks/$1 playbooks/parameters.yml 
 
 export VIRTUALIZATION_PARAMETERS_FILE=playbooks/$1
 
