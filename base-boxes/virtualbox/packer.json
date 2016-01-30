@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "ova_image": "ova\/trusty64.ova",
+    "atlas_username": "drifter",
+    "atlas_name": "trusty64"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "{{user `ova_image`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "vm_name": "{{user `atlas_username`}}-{{user `atlas_name`}}",
+      "headless": true,
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -Ph now"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get update",
+        "sudo DEBIAN_FRONTEND='noninteractive' apt-get upgrade -fy",
+        "sudo apt-get install -fy python-pip python-dev",
+        "sudo pip install ansible==1.9.4",
+        "sudo cp \/usr\/local\/bin\/ansible \/usr\/bin\/ansible",
+        "sudo apt-get remove -fy python-dev python-pip",
+        "sudo apt-get autoremove -fy"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "playbook.yml",
+      "playbook_paths": "parameters\/",
+      "playbook_dir": "..\/..\/provisioning\/"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get clean",
+        "sudo dd if=\/dev\/zero of=\/EMPTY bs=1M || true",
+        "sudo rm -f \/EMPTY",
+        "sudo sync",
+        "sudo sync",
+        "sudo sync"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "vagrant",
+        "output": "{{user `atlas_username`}}-{{user `atlas_name`}}_{{.Provider}}.box"
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "virtualbox-ovf"
+        ],
+        "token": "{{user `atlas_token`}}",
+        "artifact": "{{user `atlas_username`}}\/{{user `atlas_name`}}",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "virtualbox",
+          "version": "0.0.5"
+        }
+      }
+    ]
+  ]
+}
+
